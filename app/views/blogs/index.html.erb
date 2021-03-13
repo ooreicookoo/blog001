@@ -1,6 +1,20 @@
 <div class="blog__new_title">
-  <h1>Blogs#index</h1>
+  <h1>Blogs</h1>
+  <table>
+    <tr>
+      <th>title</th>
+      <th>content</th>
+    </tr>
+  <% @blogs.each do |blog| %>
+    <tr>
+      <td><%= blog.title %></td>
+      <td><%= blog.content %></td>
+      <td><%= link_to '詳細を確認する', blog_path(blog.id) %></td>
+      <td><%= link_to 'ブログを編集する', edit_blog_path(blog.id) %></td>
+    </tr>
+  <% end %>
+  <table>
 </div>
-<div class="blog__new_contents">
-  <p>Find me in app/views/blogs/index.html.erb</p>
+<div class="blog__index_link">
+  <%= link_to '新しくブログを投稿する', new_blog_path %>
 </div>

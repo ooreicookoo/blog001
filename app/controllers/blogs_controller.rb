@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   def index
+    @blogs = Blog.all
   end
 
   def new
@@ -7,8 +8,29 @@ class BlogsController < ApplicationController
   end
 
   def create
-    Blog.create(blog_params)
-    redirect_to new_blog_path
+    @blog= Blog.new(blog_params)
+    if @blog.save
+      redirect_to blogs_path, notice: "ブログの投稿に成功しました"
+    else
+      render :new
+    end
+  end
+
+  def show
+    @blog = Blog.find(params[:id])
+  end
+
+  def edit
+    @blog = Blog.find(params[:id])
+  end
+
+  def update
+    @blog = Blog.find(params[:id])
+    if @blog.update(blog?_params)
+      redirect_to blogs_path, notice: "ブログを編集しました"
+    else
+      render :edit
+    end
   end
 
   private
