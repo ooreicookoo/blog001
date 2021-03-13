@@ -1,24 +1,2 @@
-<h1>Blogs#new</h1>
-  <%= form_with(model: @blog, local: true) do |form| %>
-    <% if @blog.errors.any? %>
-      <div id="errors_explanation">
-        <h2><%= @blog.errors.count %>件のエラーがあります</h2>
-          <ul>
-          <% @blog.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-      </div>
-    <% end %>
-    <div class="blog__title">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div class="blog__contents">
-      <%= form.label :content %>
-      <%= form.text_field :contentn %>
-    </div>
-    <div class="blog__new_submit">
-      <%= form.submit %>
-    </div>
-  <% end %>
+<h2>ブログを作成する</h2>
+  <%= render 'form' %>
