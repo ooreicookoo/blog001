@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  before_action :set_blog, only:[:edit, :show, :update, :destroy]
+  before_action :set_blog, only: [:show, :edit, :update, :destroy]
   def index
     @blogs = Blog.all
   end
@@ -10,10 +10,14 @@ class BlogsController < ApplicationController
 
   def create
     @blog= Blog.new(blog_params)
-    if @blog.save
-      redirect_to blogs_path, notice: "ブログの投稿に成功しました"
-    else
+    if params[:back]
       render :new
+    else
+      if @blog.save
+        redirect_to blogs_path, notice: "ブログの投稿に成功しました"
+      else
+        ender :new
+      end
     end
   end
 
@@ -23,8 +27,13 @@ class BlogsController < ApplicationController
   def edit
   end
 
+  def confirm
+    @blog = Blog.new(blog_params)
+    render :new if @blog.invalid?
+  end
+
   def update
-    if @blog.update(blog?_params)
+    if @blog.update(blog_params)
       redirect_to blogs_path, notice: "ブログを編集しました"
     else
       render :edit
@@ -33,7 +42,7 @@ class BlogsController < ApplicationController
 
   def destroy
     @blog.destroy
-    redirect_to blog_path, notice: "ブログを削除しました"
+    redirect_to blogs_path, notice: "ブログを削除しました"
   end
 
   private
